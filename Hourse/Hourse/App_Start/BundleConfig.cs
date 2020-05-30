@@ -20,7 +20,10 @@ namespace Hourse
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js"));
+                      "~/Scripts/bootstrap.js",
+                      "~/Scripts/vue.min.js",
+                      "~/Scripts/jquery-3.3.1.min.js"
+                      ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",

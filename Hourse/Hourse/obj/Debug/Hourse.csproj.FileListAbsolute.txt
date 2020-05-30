@@ -105,3 +105,8 @@ D:\House\Hourse\Hourse\obj\Debug\Hourse.csproj.CoreCompileInputs.cache
 D:\House\Hourse\Hourse\obj\Debug\Hourse.csproj.CopyComplete
 D:\House\Hourse\Hourse\obj\Debug\Hourse.dll
 D:\House\Hourse\Hourse\obj\Debug\Hourse.pdb
+D:\House\Hourse\Hourse\bin\EntityFramework.dll
+D:\House\Hourse\Hourse\bin\EntityFramework.SqlServer.dll
+D:\House\Hourse\Hourse\bin\EntityFramework.xml
+D:\House\Hourse\Hourse\bin\EntityFramework.SqlServer.xml
+D:\House\Hourse\Hourse\bin\zh-Hant\EntityFramework.resources.dll

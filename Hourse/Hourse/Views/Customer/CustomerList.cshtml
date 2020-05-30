@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "CustomerList";
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/Customer/CustomerList.js"></script>
+}
+<h2>CustomerList</h2>
+
+<div id="app">
+    <table class="table radius th-bd table-striped fixedtable" style="font-size: 16px;">
+        <tr class="light">
+            <th v-on:click="GetProducts()">項次</th>
+            <th>項次</th>
+        </tr>
+        <tr v-for="Product in CustomerInfoList">
+            <td>{{Product.ProductId}}</td>
+            <td>{{Product.ProductName}}</td>
+        </tr>
+    </table>
+</div>

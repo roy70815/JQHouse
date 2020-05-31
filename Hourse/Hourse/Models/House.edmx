@@ -14,6 +14,14 @@
           <Property Name="Phone" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="Address" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="Members">
+          <Key>
+            <PropertyRef Name="MemberId" />
+          </Key>
+          <Property Name="MemberId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MemberName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Sex" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Orders">
           <Key>
             <PropertyRef Name="OrdersId" />
@@ -24,13 +32,12 @@
           <Property Name="Price" Type="int" Nullable="false" />
           <Property Name="ProductName" Type="nvarchar" MaxLength="50" />
           <Property Name="Remark" Type="nvarchar" MaxLength="300" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="ModifyDate" Type="datetime" />
         </EntityType>
-        <!--產生期間發現錯誤:
-警告 6002: 資料表/檢視 'JQHome.dbo.Product' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="ProductId" />
-            <PropertyRef Name="ProductName" />
           </Key>
           <Property Name="ProductId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProductName" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -49,13 +56,9 @@
         </Association>
         <EntityContainer Name="JQHomeModelStoreContainer">
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Members" EntityType="Self.Members" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Product" EntityType="Self.Product" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Product].[ProductId] AS [ProductId], 
-    [Product].[ProductName] AS [ProductName]
-    FROM [dbo].[Product] AS [Product]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Orders__Id__1367E606" Association="Self.FK__Orders__Id__1367E606">
             <End Role="Customer" EntitySet="Customer" />
             <End Role="Orders" EntitySet="Orders" />
@@ -76,6 +79,14 @@
           <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__Id__1367E606" FromRole="Customer" ToRole="Orders" />
         </EntityType>
+        <EntityType Name="Members">
+          <Key>
+            <PropertyRef Name="MemberId" />
+          </Key>
+          <Property Name="MemberId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Sex" Type="Int32" Nullable="false" />
+        </EntityType>
         <EntityType Name="Orders">
           <Key>
             <PropertyRef Name="OrdersId" />
@@ -86,12 +97,13 @@
           <Property Name="Price" Type="Int32" Nullable="false" />
           <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Remark" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Customer" Relationship="Self.FK__Orders__Id__1367E606" FromRole="Orders" ToRole="Customer" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="ProductId" />
-            <PropertyRef Name="ProductName" />
           </Key>
           <Property Name="ProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
@@ -110,6 +122,7 @@
         </Association>
         <EntityContainer Name="JQHomeEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Customer" EntityType="Self.Customer" />
+          <EntitySet Name="Members" EntityType="Self.Members" />
           <EntitySet Name="Orders" EntityType="Self.Orders" />
           <EntitySet Name="Product" EntityType="Self.Product" />
           <AssociationSet Name="FK__Orders__Id__1367E606" Association="Self.FK__Orders__Id__1367E606">
@@ -133,6 +146,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Members">
+            <EntityTypeMapping TypeName="JQHomeModel.Members">
+              <MappingFragment StoreEntitySet="Members">
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="MemberName" ColumnName="MemberName" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="JQHomeModel.Orders">
               <MappingFragment StoreEntitySet="Orders">
@@ -142,6 +164,8 @@
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="ProductName" ColumnName="ProductName" />
                 <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

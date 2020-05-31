@@ -22,6 +22,7 @@ namespace Hourse
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/vue.min.js",
+                      "~/Scripts/sweetalert.js",
                       "~/Scripts/jquery-3.3.1.min.js"
                       ));
 

@@ -12,17 +12,10 @@ namespace Hourse.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Orders
+    public partial class Members
     {
-        public int OrdersId { get; set; }
-        public int Id { get; set; }
-        public string CustomerName { get; set; }
-        public int Price { get; set; }
-        public string ProductName { get; set; }
-        public string Remark { get; set; }
-        public Nullable<System.DateTime> CreateDate { get; set; }
-        public Nullable<System.DateTime> ModifyDate { get; set; }
-    
-        public virtual Customer Customer { get; set; }
+        public int MemberId { get; set; }
+        public string MemberName { get; set; }
+        public int Sex { get; set; }
     }
 }

@@ -14,9 +14,25 @@ namespace Hourse.Service
         {
             _ProductUnitOfWork = new ProductUnitOfWork();
         }
-        public List<Product> GetProduct()
+        public List<Product> GetProductList()
         {
-            return _ProductUnitOfWork.GetProduct();
+            return _ProductUnitOfWork.GetProductList();
+        }
+        public Product GetProductDetail(int Id)
+        {
+            return _ProductUnitOfWork.GetProductDetail(Id);
+        }
+        public void CreateProduct(string ProductName)
+        {
+            _ProductUnitOfWork.CreateProduct(ProductName);
+        }
+        public void UpdateProduct(Product product)
+        {
+            _ProductUnitOfWork.UpdateProduct(product);
+        }
+        public void DeleteProduct(int id)
+        {
+            _ProductUnitOfWork.DeleteProduct(id);
         }
     }
 }

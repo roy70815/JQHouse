@@ -110,3 +110,11 @@ D:\House\Hourse\Hourse\bin\EntityFramework.SqlServer.dll
 D:\House\Hourse\Hourse\bin\EntityFramework.xml
 D:\House\Hourse\Hourse\bin\EntityFramework.SqlServer.xml
 D:\House\Hourse\Hourse\bin\zh-Hant\EntityFramework.resources.dll
+D:\House\Hourse\Hourse\bin\System.Runtime.CompilerServices.Unsafe.dll
+D:\House\Hourse\Hourse\bin\Unity.Abstractions.dll
+D:\House\Hourse\Hourse\bin\Unity.Container.dll
+D:\House\Hourse\Hourse\bin\Unity.Mvc5.dll
+D:\House\Hourse\Hourse\bin\System.Runtime.CompilerServices.Unsafe.xml
+D:\House\Hourse\Hourse\bin\Unity.Abstractions.pdb
+D:\House\Hourse\Hourse\bin\Unity.Container.pdb
+D:\House\Hourse\Hourse\bin\zh-Hant\EntityFramework.SqlServer.resources.dll

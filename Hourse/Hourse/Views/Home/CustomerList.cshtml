@@ -9,9 +9,16 @@
 <h2>顧客清單</h2>
 
 <div id="app">
-    <button class="btn btn-success" @*class="btn btn-create btn-confirm shadow"*@ data-toggle="modal" data-target="#create" v-on:click="IsEdit=false,initNewOrUpdateCustermer()">
-        <span>新增客戶</span>
-    </button>
+    <div class="dark-bg-group-top mb-s clearfix">
+        <button class="btn btn-success" data-toggle="modal" data-target="#create" v-on:click="IsEdit=false,initNewOrUpdateCustermer()">
+            <span>新增客戶</span>
+        </button>
+    </div>
+    <div class="filter-bar-right pull-right">
+        <form class="search-form shadow">
+            <input v-model="SearchString" placeholder="查詢客戶" class="form-control" type="text" name="SearchString" />
+        </form>
+    </div>
     <br />
     <div class="table">
         <table class="table radius th-bd table-striped" style="font-size: 16px;">
@@ -22,31 +29,34 @@
                 <th class="text-center">編輯</th>
             </tr>
             <tr v-for="(Customer,index) in PageCustomerInfoList">
-                <td>{{index+1}}</td>
+                <td>{{(index+1)+(CurrenPage-1)*PageSize}}</td>
                 <td>{{Customer.CustomerName}}</td>
                 <td>{{Customer.Phone}}</td>
                 <td class="text-center"><button type="button" class="btn btn-primary" v-on:click="IsEdit=true,GetCustomerDetail(Customer.CustomerId)">編輯</button><button type="button" class="btn btn-danger" v-on:click="DeleteCustomer(Customer.CustomerId)">刪除</button></td>
             </tr>
         </table>
     </div>
-    <ul v-if="TotalPage>0" style="margin-top: 18px" class="pagination pagination-sm pull-right">
-        <li v-if="CurrenPage !== 1">
-            <a href="#" aria-label="Previous" v-on:click="CurrenPage=1">
-                <span aria-hidden="true">&laquo;</span>
-            </a>
-        </li>
-        <li v-if="CurrenPage-2 > 0"><a href="#" v-on:click="CurrenPage-=2">{{CurrenPage-2}}</a></li>
-        <li v-if="CurrenPage != 1"><a href="#" v-on:click="CurrenPage--">{{CurrenPage-1}}</a></li>
-        <li class="active"><a href="#" disabled>{{CurrenPage}}</a></li>
-        <li v-if="CurrenPage+1 <= TotalPage"><a href="#" v-on:click="CurrenPage++">{{CurrenPage+1}}</a></li>
-        <li v-if="CurrenPage+2 <= TotalPage"><a href="#" v-on:click="CurrenPage+=2">{{CurrenPage+2}}</a></li>
-        <li v-if="TotalPage != 1 && CurrenPage!=TotalPage">
-            <a href="#" aria-label="Next" v-on:click="CurrenPage=TotalPage">
-                <span aria-hidden="true">&raquo;</span>
-            </a>
-        </li>
-        <li class="to">至 <input type="number" min="1" :max="TotalPage" onkeyup="value=value.replace(/[^\d]/g,'')" v-model="AppointPage" v-on:change="SetPage(AppointPage)" @@keydown.enter.prevent="SetPage(AppointPage)" style="width:80px" /> 頁，共{{TotalPage}}頁</li>
-    </ul>
+    <div class="pull-left">
+        <ul v-if="TotalPage>0" style="margin-top: 18px" class="pagination pagination-sm pull-right">
+            <li v-if="CurrenPage !== 1">
+                <a href="#" aria-label="Previous" v-on:click="CurrenPage=1">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li v-if="CurrenPage-2 > 0"><a href="#" v-on:click="CurrenPage-=2">{{CurrenPage-2}}</a></li>
+            <li v-if="CurrenPage != 1"><a href="#" v-on:click="CurrenPage--">{{CurrenPage-1}}</a></li>
+            <li class="active"><a href="#" disabled>{{CurrenPage}}</a></li>
+            <li v-if="CurrenPage+1 <= TotalPage"><a href="#" v-on:click="CurrenPage++">{{CurrenPage+1}}</a></li>
+            <li v-if="CurrenPage+2 <= TotalPage"><a href="#" v-on:click="CurrenPage+=2">{{CurrenPage+2}}</a></li>
+            <li v-if="TotalPage != 1 && CurrenPage!=TotalPage">
+                <a href="#" aria-label="Next" v-on:click="CurrenPage=TotalPage">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+            <li class="to">至 <input type="number" min="1" :max="TotalPage" onkeyup="value=value.replace(/[^\d]/g,'')" v-model="AppointPage" v-on:change="SetPage(AppointPage)" @@keydown.enter.prevent="SetPage(AppointPage)" style="width:80px" /> 頁，共{{TotalPage}}頁</li>
+        </ul>
+    </div>
+    
 
     @* dailog *@
     <div class="modal fade" id="create" role="dialog">

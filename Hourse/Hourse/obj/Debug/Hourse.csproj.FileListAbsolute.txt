@@ -118,3 +118,7 @@ D:\House\Hourse\Hourse\bin\System.Runtime.CompilerServices.Unsafe.xml
 D:\House\Hourse\Hourse\bin\Unity.Abstractions.pdb
 D:\House\Hourse\Hourse\bin\Unity.Container.pdb
 D:\House\Hourse\Hourse\bin\zh-Hant\EntityFramework.SqlServer.resources.dll
+D:\House\Hourse\Hourse\bin\PagedList.dll
+D:\House\Hourse\Hourse\bin\PagedList.Mvc.dll
+D:\House\Hourse\Hourse\bin\PagedList.xml
+D:\House\Hourse\Hourse\bin\PagedList.Mvc.xml

@@ -18,7 +18,7 @@ namespace Hourse.Services
         {
             return _CustomerUnitOfWork.GetCustomerList();
         }
-        public Customer GetCustomerDetail(int Id)
+        public CustomerViewModel GetCustomerDetail(int Id)
         {
             return _CustomerUnitOfWork.GetCustomerDetail(Id);
         }

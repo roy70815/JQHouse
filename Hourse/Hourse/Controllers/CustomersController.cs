@@ -36,7 +36,7 @@ namespace Hourse.Controllers
         {
             try
             {
-                return Request.CreateResponse<Customer>(HttpStatusCode.Created, _CustomerService.GetCustomerDetail(Id), GlobalConfiguration.Configuration.Formatters.JsonFormatter);
+                return Request.CreateResponse<CustomerViewModel>(HttpStatusCode.Created, _CustomerService.GetCustomerDetail(Id), GlobalConfiguration.Configuration.Formatters.JsonFormatter);
             }
             catch (Exception e)
             {

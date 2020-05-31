@@ -13,9 +13,17 @@ namespace Hourse.Models.UnitOfWorks
         {
             return db.Customer.Select(x => new CustomerViewModel { CustomerId = x.Id, CustomerName = x.CustomerName, Phone = x.Phone }).ToList();
         }
-        public Customer GetCustomerDetail(int Id)
+        public CustomerViewModel GetCustomerDetail(int Id)
         {
-            return db.Customer.Find(Id);
+            Customer Customer = db.Customer.Find(Id);
+            var result = new CustomerViewModel()
+            {
+                CustomerId = Customer.Id,
+                Address = Customer.Address,
+                CustomerName = Customer.CustomerName,
+                Phone = Customer.Phone
+            };
+            return result;
         }
         public void CreateCustomer(Customer customer)
         {

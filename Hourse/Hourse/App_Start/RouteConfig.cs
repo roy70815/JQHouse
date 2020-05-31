@@ -16,7 +16,7 @@ namespace Hourse
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "CustomerList", id = UrlParameter.Optional }
+                defaults: new { controller = "Home", action = "OrderList", id = UrlParameter.Optional }
             );
         }
     }

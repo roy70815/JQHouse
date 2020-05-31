@@ -1,13 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using PagedList;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
+
 namespace Hourse.ViewModel
 {
     public class OrderViewModel
     {
-        public List<OrderInfoList> OrderInfoList { get; set; }
+        public IPagedList<OrderInfoList> OrderInfoList { get; set; }
+        public List<SelectListItem> MemberList { get; set; }
+        public string MemberId { get; set; }
+        public List<SelectListItem> ProductList { get; set; }
+        public string ProductName { get; set; }
+        public string SearchString { get; set; }
     }
     public class OrderInfoList
     {
@@ -25,6 +33,8 @@ namespace Hourse.ViewModel
         public string ProductName { get; set; }
         [Display(Name = "建立時間")]
         public string CreateDateStr { get; set; }
+        [Display(Name = "備註")]
+        public string Remark { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
     }
 }

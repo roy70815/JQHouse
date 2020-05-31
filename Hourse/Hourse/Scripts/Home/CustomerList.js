@@ -3,16 +3,16 @@
     data: {
         CustomerInfoList: [],
         NewOrUpdateCustermer: {
-            Id:0,
+            Id: 0,
             CustomerName: "",
             Phone: "",
-            Address:""
+            Address: ""
         },
         IsEdit: false,
-        SearchString:"",
+        SearchString: "",
         //分頁控制
         CurrenPage: 1,
-        PageSize: 3,
+        PageSize: 5,
         AppointPage: 1,
     },
     methods: {
@@ -79,7 +79,7 @@
                     //})
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-                    swal(jqXHR.responseText,'','error')
+                    swal(jqXHR.responseText, '', 'error')
                 }
             })
         },
@@ -130,7 +130,7 @@
                 if (!res) return;
                 $.ajax({
                     type: 'Delete',
-                    url: '/api/Customers/DeleteCustomer/'+Id,
+                    url: '/api/Customers/DeleteCustomer/' + Id,
                     data: {
                         //'Id': Id
                     },
@@ -161,11 +161,19 @@
     mounted() {
         this.GetCustomerList();
     },
+    watch: {
+        TotalPage: function (newVal, oldVal) {
+            if (newVal < this.CurrenPage) {
+                this.CurrenPage = 1;
+            }
+        }
+    },
     computed: {
         TotalPage: {
             get: function () {
-                if (this.CustomerInfoList.length !== 0) {
-                    return Math.ceil(this.CustomerInfoList.length / this.PageSize);
+                var InfoList = this.CustomerInfoList.filter(x => x.CustomerName.includes(this.SearchString) || x.Phone.includes(this.SearchString));
+                if (InfoList.length !== 0) {
+                    return Math.ceil(InfoList.length / this.PageSize);
                 }
                 return 1;
             }
@@ -173,7 +181,8 @@
         PageCustomerInfoList: {
             get: function () {
                 if (this.CustomerInfoList.length > this.PageSize) {
-                    return this.CustomerInfoList.slice((this.CurrenPage - 1) * this.PageSize, this.CurrenPage * this.PageSize)
+                    var InfoList = this.CustomerInfoList.filter(x => x.CustomerName.includes(this.SearchString) || x.Phone.includes(this.SearchString));
+                    return InfoList.slice((this.CurrenPage - 1) * this.PageSize, this.CurrenPage * this.PageSize)
                 } else {
                     return this.CustomerInfoList;
                 }

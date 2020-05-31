@@ -29,5 +29,7 @@ namespace Hourse.Models
         public virtual DbSet<Members> Members { get; set; }
         public virtual DbSet<Orders> Orders { get; set; }
         public virtual DbSet<Product> Product { get; set; }
+
+        public System.Data.Entity.DbSet<Hourse.ViewModel.OrderInfoList> OrderInfoLists { get; set; }
     }
 }

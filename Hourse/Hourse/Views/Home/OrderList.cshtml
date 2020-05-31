@@ -4,14 +4,26 @@
     ViewBag.Title = "OrderList";
     int index = 1;
 }
-
+@section Scripts {
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/Home/OrderList.js"></script>
+}
+@using PagedList;
+@using PagedList.Mvc;
 <h2>訂單管理</h2>
 <div id="app">
+    @*<div class="row">*@
     <div class="dark-bg-group-top mb-s clearfix">
-        <button data-toggle="modal" data-target="Create" class="btn btn-success">
+        <button data-toggle="modal" data-target="#Create" class="btn btn-success">
             新增訂單
         </button>
     </div>
+    <div class="filter-bar-right pull-right">
+        <form class="search-form shadow" action="/Home/OrderList" method="get">
+            <input placeholder="查詢訂單" class="form-control" type="text" name="SearchString" value="@Model.SearchString" onchange="this.form.submit();" />
+        </form>
+    </div>
+    @*</div>*@
     <table class="schema-maintain-table table table-striped table-m radius th-bd ">
         <tr>
             <th>項次</th>
@@ -31,11 +43,17 @@
                 <td>@Order.Price</td>
                 <td>@Order.MemberName</td>
                 <td>@Order.CreateDateStr</td>
-                <td></td>
+                <td>  
+                    <form method="post" action="/Home/DeleteOrder/@Order.OrdersId">
+                        <button type="button" class="btn btn-primary" v-on:click="GetOrderDetail(@Order.OrdersId)">編輯</button>
+                        <button type="submit" class="btn btn-danger">刪除</button>
+                    </form>
+                </td>
             </tr>
             index++;
         }
     </table>
+    @Html.PagedListPager((IPagedList)Model.OrderInfoList, page => Url.Action("OrderList", new { page = page }))
     @* dailog *@
     <div class="modal fade" id="Create" role="dialog">
         <div class="modal-dialog modal-s">
@@ -44,21 +62,100 @@
                     <h3 class="modal-title text-center">新增訂單</h3>
                 </div>
                 <br />
+                <form method="post" action="/Home/CreateOrder">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <label>客戶姓名</label>
+                                <input name="Customer_Name" class="form-control" type="text" />
+                            </div>
+                            <div class="col-xs-6">
+                                <label>產品名稱</label>
+                                <div class="dropdown">
+                                    @Html.DropDownListFor(x => x.ProductName, Model.ProductList, new { id = "ProductName" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <label>產品價格</label>
+                                <input name="Customer_Price" class="form-control" min="0" type="number" style="width:100%" />
+                            </div>
+                            <div class="col-xs-6">
+                                <label>員工姓名</label>
+                                <div class="dropdown">
+                                    @Html.DropDownListFor(x => x.MemberId, Model.MemberList, new { id = "MemberId" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <label>備註</label>
+                                <textarea name="Remark" id="Remark" class="form-control" style="width:100%"></textarea>
+                                @*<input name="Remark" class="form-control" min="0" type="" style="width:100%" />*@
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 text-right">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
+                                    取消
+                                </button>
+                                <button type="submit" class="btn btn-create">
+                                    確認
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="detail" role="dialog">
+        <div class="modal-dialog modal-s">
+            <div class="modal-content dark">
+                <div class="modal-header">
+                    <h3 class="modal-title text-center">修改訂單資料</h3>
+                </div>
+                <br />
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-xs-6">
                             <label>客戶姓名</label>
-                            <input class="form-control" v-model="NewOrUpdateCustermer.CustomerName" type="text" />
+                            <input class="form-control" v-model="OrderDetail.CustomerName" disabled type="text" />
                         </div>
                         <div class="col-xs-6">
-                            <label>客戶電話</label>
-                            <input class="form-control" v-model="NewOrUpdateCustermer.Phone" type="text" />
+                            <label>產品名稱</label>
+                            <div class="dropdown">
+                                <select v-model="OrderDetail.ProductName">
+                                    @foreach (var Item in Model.ProductList)
+                                    {
+                                        <option :value="'@Item.Value'">@Item.Text</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <label>產品價格</label>
+                            <input v-model="OrderDetail.Price" class="form-control" min="0" type="number" style="width:100%" />
+                        </div>
+                        <div class="col-xs-6">
+                            <label>員工姓名</label>
+                            <div class="dropdown">
+                                <select v-model="OrderDetail.Id">
+                                    @foreach (var Member in Model.MemberList)
+                                    {
+                                        <option :value="@Member.Value">@Member.Text</option>
+                                    }
+                                </select>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-xs-12">
-                            <label>客戶地址</label>
-                            <input class="form-control" v-model="NewOrUpdateCustermer.Address" type="text" style="width:100%" />
+                            <label>備註</label>
+                            <textarea v-model="OrderDetail.Remark" id="Remark" class="form-control" style="width:100%"></textarea>
                         </div>
                     </div>
                     <div class="row">
@@ -66,10 +163,7 @@
                             <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
                                 取消
                             </button>
-                            <button v-if="IsEdit" type="button" class="btn btn-create" data-dismiss="modal" aria-label="Close" v-on:click="UpdateCustomer()">
-                                確認
-                            </button>
-                            <button v-else type="button" class="btn btn-create" data-dismiss="modal" aria-label="Close" v-on:click="CreateCustomer()">
+                            <button type="button" class="btn btn-create" data-dismiss="modal" aria-label="Close" v-on:click="UpdateOrder()">
                                 確認
                             </button>
                         </div>
